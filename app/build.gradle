@@ -16,7 +16,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
+    task compilePoFiles(type:Exec) {
+        workingDir projectDir
+        commandLine '../scripts/po-compile-all', '../app/po/',  '../app/src/main/java/com/hulab/gettext/example/translations/', 'com.hulab.gettext.example.translations'
+        standardOutput new ByteArrayOutputStream()
+        ext.output = {
+            return standardOutput.toString()
+        }
+    }
 }
+
+compilePoFiles.execute()
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
