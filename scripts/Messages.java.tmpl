@@ -8,9 +8,25 @@ public class {{ locale }} extends com.hulab.Messages {
         entries.put(new Entry("{{ msgid }}"), "{{ msgstr }}");
         {%- endfor %}
 
-        {%- for msgid, msgid_plural, lst in plural_entries %}
+
+        {%- for msgid, msgstr, msgctxt in ctxt_entries %}
+        entries.put(new Entry("{{ msgid }}", "{{ msgctxt }}"), "{{ msgstr }}");
+        {%- endfor %}
+
+        {%- for msgid, msgid_plural, lst in plain_plurals %}
         plurals.put(
             new Plural("{{ msgid }}", "{{ msgid_plural }}"),
+            new String[] {
+            {%- for msgstr in lst %}
+                "{{ msgstr }}",
+            {%- endfor %}
+            }
+        );
+        {%- endfor %}
+
+        {%- for msgid, msgid_plural, lst, msgctxt in plurals %}
+        plurals.put(
+            new Plural("{{ msgid }}", "{{ msgctxt }}", "{{ msgid_plural }}"),
             new String[] {
             {%- for msgstr in lst %}
                 "{{ msgstr }}",

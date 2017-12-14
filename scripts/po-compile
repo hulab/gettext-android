@@ -65,14 +65,18 @@ def process(locale, pofile, out):
         tmpl = jinja2.Template(f.read())
 
     entries = pofile.translated_entries()
-    plain_entries = [(escape(x.msgid), escape(x.msgstr)) for x in entries if not x.msgstr_plural]
-    plural_entries = [(escape(x.msgid), escape(x.msgid_plural), escape_plural(x.msgstr_plural)) for x in entries if x.msgstr_plural]
+    plain_entries = [(escape(x.msgid), escape(x.msgstr)) for x in entries if not x.msgstr_plural and not x.msgctxt]
+    ctxt_entries = [(escape(x.msgid), escape(x.msgstr), escape(x.msgctxt)) for x in entries if x.msgctxt and not x.msgstr_plural]
+    plain_plurals = [(escape(x.msgid), escape(x.msgid_plural), escape_plural(x.msgstr_plural)) for x in entries if x.msgstr_plural and not x.msgctxt]
+    ctxt_plurals = [(escape(x.msgid), escape(x.msgid_plural), escape_plural(x.msgstr_plural), escape(x.msgctxt)) for x in entries if x.msgstr_plural and x.msgctxt]
     plural_code = extract_plural_code(pofile.metadata["Plural-Forms"])
 
     txt = tmpl.render(dict(
         locale=locale,
         plain_entries=plain_entries,
-        plural_entries=plural_entries,
+        ctxt_entries=ctxt_entries,
+        plain_plurals=plain_plurals,
+        ctxt_plurals=ctxt_plurals,
         plural_code=plural_code,
         generator=generator,
     ))
