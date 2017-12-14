@@ -26,16 +26,17 @@ die() {
 }
 
 usage() {
-    echo "$(basename $0) <src-po-dir> <dst-java-dir>"
+    echo "$(basename $0) <src-po-dir> <dst-java-dir> <package-name>"
     exit 1
 }
 
-if [ $# != 2 ] ; then
+if [ $# < 2 ] ; then
     usage
 fi
 
 src="$1"
 dst="$2"
+pkg="$3"
 
 if [ ! -d "$src" ] ; then
     die "'$src' is not a dir"
@@ -45,8 +46,12 @@ if [ ! -d "$dst" ] ; then
     die "'$dst' is not a dir"
 fi
 
+if [ ! "$pkg" ] ; then
+    pkg="com.hulab.gettext"
+fi
+
 for po in $src/*.po ; do
     echo "Compiling $po"
     locale=$(basename $po .po)
-    $script_dir/po-compile -o $dst/$locale.java -l $locale $po
+    $script_dir/po-compile -p $pkg -o $dst/$locale.java -l $locale $po
 done

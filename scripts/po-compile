@@ -57,7 +57,7 @@ def extract_plural_code(txt):
         return code
 
 
-def process(locale, pofile, out):
+def process(package, locale, pofile, out):
     generator = os.path.basename(sys.argv[0])
 
     tmpl_path = os.path.join(os.path.dirname(__file__), "Messages.java.tmpl")
@@ -72,6 +72,7 @@ def process(locale, pofile, out):
     plural_code = extract_plural_code(pofile.metadata["Plural-Forms"])
 
     txt = tmpl.render(dict(
+        package=package,
         locale=locale,
         plain_entries=plain_entries,
         ctxt_entries=ctxt_entries,
@@ -92,6 +93,9 @@ def parse_args():
     parser.add_argument("-l", "--locale", required=True,
         help="name of the locale (for example \"fr\" or \"pt_BR\"")
 
+    parser.add_argument("-p", "--package", required=True,
+        help="name of the java package (for example \"com.hulab.gettext.po\"")
+
     parser.add_argument("po_file",
         help="file to parse")
 
@@ -109,7 +113,7 @@ def main():
         print("{} does not exist".format(args.po_file), file=sys.stderr)
         return 1
     pofile = polib.pofile(args.po_file)
-    process(args.locale, pofile, out)
+    process(args.package, args.locale, pofile, out)
 
     return 0
 
