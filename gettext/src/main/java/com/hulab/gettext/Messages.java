@@ -15,14 +15,15 @@
  */
 package com.hulab.gettext;
 
+import android.content.Context;
 import android.util.Pair;
 
 import java.util.HashMap;
 
 public class Messages {
 
-    static Messages load(String locale) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        Class<?> clazz = Class.forName(locale);
+    static Messages load(Context context, String locale) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        Class<?> clazz = Class.forName(context.getPackageName() + ".translations." + locale);
         return (Messages) clazz.newInstance();
     }
 
@@ -31,7 +32,7 @@ public class Messages {
         protected final String msgid;
         protected final String context;
 
-        protected Entry(String msgid) {
+        public Entry(String msgid) {
             this.msgid = msgid;
             this.context = "";
         }
@@ -66,7 +67,7 @@ public class Messages {
             this.msgid_plural = msgid_plural;
         }
 
-        protected Plural(String msgid, String msgid_plural) {
+        public Plural(String msgid, String msgid_plural) {
             super(msgid);
             this.msgid_plural = msgid_plural;
         }
