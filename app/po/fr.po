@@ -29,10 +29,10 @@ msgid "Hello!"
 msgstr "Bonjour !"
 
 #: example.java:23
-msgid "%# file."
+msgid "%d file."
 msgid_plural "%# files."
-msgstr[0] "%# fichier."
-msgstr[1] "%# fichiers."
+msgstr[0] "%d fichier."
+msgstr[1] "%d fichiers."
 
 #~ msgid "Usage: Example <number>"
 #~ msgstr "Utilisation : Example <nombre>"

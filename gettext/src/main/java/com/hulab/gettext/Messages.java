@@ -16,6 +16,7 @@
 package com.hulab.gettext;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 
 import java.util.HashMap;
@@ -23,7 +24,9 @@ import java.util.HashMap;
 public class Messages {
 
     static Messages load(Context context, String locale) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        Class<?> clazz = Class.forName(context.getPackageName() + ".translations." + locale);
+        String className = context.getPackageName() + "." + locale;
+        Log.d("GETTEXT", "loading class "  + className);
+        Class<?> clazz = Class.forName(className);
         return (Messages) clazz.newInstance();
     }
 

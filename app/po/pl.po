@@ -29,8 +29,8 @@ msgid "Hello!"
 msgstr ""
 
 #: example.java:23
-msgid "%# file."
+msgid "%d file."
 msgid_plural "%# files."
-msgstr[0] "%# plik."
-msgstr[1] "%# pliki."
-msgstr[2] "%# plików."
+msgstr[0] "%d plik."
+msgstr[1] "%d pliki."
+msgstr[2] "%d plików."

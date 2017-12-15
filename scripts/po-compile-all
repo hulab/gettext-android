@@ -53,5 +53,5 @@ fi
 for po in $src/*.po ; do
     echo "Compiling $po"
     locale=$(basename $po .po)
-    $script_dir/po-compile -p $pkg -o $dst/$locale.java -l $locale $po
+    $script_dir/po-compile.py -p $pkg -o $dst/$locale.java -l $locale $po
 done
