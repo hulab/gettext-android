@@ -27,7 +27,9 @@ android {
 def executePoCompile(def proj) {
     return tasks.create("${proj.name}compilePo", Exec) {
         workingDir projectDir
-        commandLine '../scripts/po-compile-all', "${proj.projectDir}/po/", "${proj.buildDir}/generated/source/r/", "${proj.android.defaultConfig.applicationId}"
+        commandLine '../scripts/po-compile-all', "${proj.projectDir}/po/",
+                "${proj.buildDir}/generated/source/r/",
+                "${proj.android.defaultConfig.applicationId}"
         execute()
     }
 }
@@ -36,6 +38,7 @@ task compilePoFiles() {
 
     rootProject.allprojects.each { proj ->
         def pofolder = new File("${proj.projectDir}/po/")
+            println("properties : ${proj.getMetaPropertyValues()}")
         if (pofolder.exists() && proj.hasProperty("android")) {
             executePoCompile(proj)
         }

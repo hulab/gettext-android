@@ -17,83 +17,20 @@ package com.hulab.gettext;
 
 import android.content.Context;
 import android.util.Log;
-import android.util.Pair;
 
 import java.util.HashMap;
 
 public class Messages {
 
+    protected final HashMap<Entry, String> entries = new HashMap<Entry, String>();
+    protected final HashMap<Plural, String[]> plurals = new HashMap<Plural, String[]>();
+
     static Messages load(Context context, String locale) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         String className = context.getPackageName() + "." + locale;
-        Log.d("GETTEXT", "loading class "  + className);
+        Log.d("GETTEXT", "loading class " + className);
         Class<?> clazz = Class.forName(className);
         return (Messages) clazz.newInstance();
     }
-
-    protected static class Entry {
-
-        protected final String msgid;
-        protected final String context;
-
-        public Entry(String msgid) {
-            this.msgid = msgid;
-            this.context = "";
-        }
-
-        protected Entry(String msgid, String context) {
-            this.msgid = msgid;
-            this.context = context;
-        }
-
-        @Override
-        public int hashCode() {
-            return (context + '|' + msgid).hashCode();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof Entry)) {
-                return false;
-            }
-
-            Entry other = (Entry)obj;
-            return context.equals(other.context) && msgid.equals(other.msgid);
-        }
-    }
-
-    protected static class Plural extends Entry {
-
-        protected final String msgid_plural;
-
-        protected Plural(String msgid, String msgid_plural, String context) {
-            super(msgid, context);
-            this.msgid_plural = msgid_plural;
-        }
-
-        public Plural(String msgid, String msgid_plural) {
-            super(msgid);
-            this.msgid_plural = msgid_plural;
-        }
-
-        @Override
-        public int hashCode() {
-            return (context + '|' + msgid + '|' + msgid_plural).hashCode();
-    }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof Plural)) {
-                return false;
-            }
-
-            Plural other = (Plural)obj;
-            return context.equals(other.context) && msgid.equals(other.msgid) && msgid_plural.equals(other.msgid_plural);
-        }
-    }
-
-    protected final HashMap<Entry, String> entries = new HashMap<Entry, String>();
-
-    protected final HashMap<Plural, String[]> plurals = new HashMap<Plural, String[]>();
 
     protected int plural(int n) {
         return n == 1 ? 0 : 1;
@@ -126,5 +63,66 @@ public class Messages {
 
         // Should check bounds
         return msgstr[plural(n)];
+    }
+
+    protected static class Entry {
+
+        protected final String msgid;
+        protected final String context;
+
+        public Entry(String msgid) {
+            this.msgid = msgid;
+            this.context = "";
+        }
+
+        protected Entry(String msgid, String context) {
+            this.msgid = msgid;
+            this.context = context;
+        }
+
+        @Override
+        public int hashCode() {
+            return (context + '|' + msgid).hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Entry)) {
+                return false;
+            }
+
+            Entry other = (Entry) obj;
+            return context.equals(other.context) && msgid.equals(other.msgid);
+        }
+    }
+
+    protected static class Plural extends Entry {
+
+        protected final String msgid_plural;
+
+        protected Plural(String msgid, String msgid_plural, String context) {
+            super(msgid, context);
+            this.msgid_plural = msgid_plural;
+        }
+
+        public Plural(String msgid, String msgid_plural) {
+            super(msgid);
+            this.msgid_plural = msgid_plural;
+        }
+
+        @Override
+        public int hashCode() {
+            return (context + '|' + msgid + '|' + msgid_plural).hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Plural)) {
+                return false;
+            }
+
+            Plural other = (Plural) obj;
+            return context.equals(other.context) && msgid.equals(other.msgid) && msgid_plural.equals(other.msgid_plural);
+        }
     }
 }
