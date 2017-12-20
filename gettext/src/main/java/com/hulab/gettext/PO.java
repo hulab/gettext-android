@@ -57,8 +57,8 @@ public class PO {
         return sharedMessages(context).gettext(msgid);
     }
 
-    public static String gettext(Context context, String msgid, Object... args) {
-        return String.format(gettext(context, msgid), args);
+    public static String gettext(Context context, String msgid, String msgid_plural, int n) {
+        return String.format(sharedMessages(context).ngettext(msgid, msgid_plural, n), n);
     }
 
     public static String xgettext(Context context, String msgid, String msgContext) {
