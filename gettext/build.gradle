@@ -32,6 +32,7 @@ android.libraryVariants.all { variant ->
                 def pofolder = new File("${proj.projectDir}/po/")
                 if (pofolder.exists() && proj.hasProperty("android")) {
                     executePoCompile(proj, variant.buildType.name)
+                    //proj.getTasksByName("${proj.name}:assemble", false).dependsOn(compileDebugPoFiles)
                 }
             }
         }
@@ -43,7 +44,8 @@ def executePoCompile(proj, variantName) {
     println("Compiling po files for project ${proj.android.defaultConfig.applicationId}:${variantName}")
     exec {
         commandLine '../scripts/po-compile-all', "${proj.projectDir}/po",
-                "${proj.buildDir}/generated/source/r/${variantName}/com/hulab/gettext/example",
+                "${proj.projectDir}/src/main/java/com/hulab/gettext/example",
+                //"${proj.buildDir}/generated/source/r/${variantName}/com/hulab/gettext/example",
                 "${proj.android.defaultConfig.applicationId}"
     }
 }
