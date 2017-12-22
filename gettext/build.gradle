@@ -25,30 +25,56 @@ android {
 }
 
 android.libraryVariants.all { variant ->
-    tasks.create(variant.buildType.name.equals(BuilderConstants.RELEASE) ?
+    tasks.create(variant.buildType.name == BuilderConstants.RELEASE ?
             "compileReleasePoFiles" : "compileDebugPoFiles") {
         doFirst {
             rootProject.allprojects.each { proj ->
                 def pofolder = new File("${proj.projectDir}/po/")
                 if (pofolder.exists() && proj.hasProperty("android")) {
                     executePoCompile(proj, variant.buildType.name)
-                    //proj.getTasksByName("${proj.name}:assemble", false).dependsOn(compileDebugPoFiles)
+                    //proj.getTasks().findByName("preBuild").dependsOn("compileDebugPoFiles")
                 }
             }
         }
+    }
+}
 
+task buildDebugPoFiles {
+    doFirst {
+        rootProject.allprojects.each { proj ->
+            println("compiling po files for project : ${proj.getName()}")
+            //def taskName = variant.buildType.name == BuilderConstants.RELEASE ? "compileReleasePoFiles" : "compileDebugPoFiles"
+            if (proj.getTasks().findByName("compileDebugPoFiles") != null) {
+                proj.getTasks().findByName("compileDebugPoFiles").execute()
+                //proj.srcDirs += "${proj.getBuildDir()}/generated/source/r/${variant.buildType.name}/com/hulab/gettext/example"
+            }
+        }
+    }
+}
+
+task buildReleasePoFiles {
+    doFirst {
+        rootProject.allprojects.each { proj ->
+            if (proj.getTasks().findByName("compileReleasePoFiles") != null) {
+                proj.getTasks().findByName("compileReleasePoFiles").execute()
+            }
+        }
     }
 }
 
 def executePoCompile(proj, variantName) {
-    println("Compiling po files for project ${proj.android.defaultConfig.applicationId}:${variantName}")
+    def outputDir = file("${proj.buildDir}/generated/source/r/${variantName}/com/hulab/gettext/example")
+    outputDir.exists() || outputDir.mkdirs()
     exec {
         commandLine '../scripts/po-compile-all', "${proj.projectDir}/po",
-                "${proj.projectDir}/src/main/java/com/hulab/gettext/example",
-                //"${proj.buildDir}/generated/source/r/${variantName}/com/hulab/gettext/example",
+                //"${proj.projectDir}/src/main/java/com/hulab/gettext/example",
+                outputDir.getPath(),
                 "${proj.android.defaultConfig.applicationId}"
     }
 }
+
+preBuild.dependsOn buildDebugPoFiles
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
