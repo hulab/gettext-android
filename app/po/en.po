@@ -1,0 +1,45 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Example\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-06 16:41+0100\n"
+"PO-Revision-Date: 2017-12-13 14:53+0100\n"
+"Last-Translator: Andrej Mihajlov <and@codeispoetry.ru>\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.5\n"
+"X-Poedit-KeywordsList: _;_x:2c,1;_nx:4c,1,2;_n:1,2;_n_noop:1,2;_nx_noop:3c,1,2;POLocalizedString;"
+"POLocalizedStringFromContext:2c,1;POLocalizedPluralFormat:3c,1,2;"
+"POLocalizedPluralFormatFromContext:4c,1,2;POLocalizedStringInBundle:2;"
+"POLocalizedStringFromContextInBundle:3c,2;POLocalizedPluralFormatInBundle:2,3;"
+"POLocalizedPluralFormatFromContextInBundle:5c,2,3;J.getString:2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-SearchPath-0: res/Example-swift\n"
+"X-Poedit-SearchPath-1: res/Examples-objc\n"
+"X-Poedit-SearchPath-2: java/com/hulab/exampleapp\n"
+
+#: Examples-objc/ViewController.m:33
+#, c-format
+msgid "iOS %s"
+msgstr "iOS %s"
+
+#: Examples-objc/ViewController.m:36
+msgid "Choose number of apples"
+msgstr "Choose number of apples"
+
+#: Examples-objc/ViewController.m:43
+#, objc-format
+msgid "%d apple"
+msgid_plural "%d apples"
+msgstr[0] "%d apple"
+msgstr[1] "%d apples"
