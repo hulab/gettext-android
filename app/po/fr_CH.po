@@ -11,7 +11,7 @@ msgstr ""
 "PO-Revision-Date: 2017-12-13 14:53+0100\n"
 "Last-Translator: Andrej Mihajlov <and@codeispoetry.ru>\n"
 "Language-Team: \n"
-"Language: en\n"
+"Language: fr_CH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,11 +35,11 @@ msgstr "iOS %s"
 
 #: Examples-objc/ViewController.m:36
 msgid "Choose number of apples"
-msgstr "Choose number of apples"
+msgstr "Choisissez un nombre de pomme pour la suisse"
 
 #: Examples-objc/ViewController.m:43
 #, objc-format
 msgid "%d apple"
 msgid_plural "%d apples"
-msgstr[0] "%d apple"
-msgstr[1] "%d apples"
+msgstr[0] "%d pomme Suisse"
+msgstr[1] "%d pommes Suisses"

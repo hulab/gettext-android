@@ -66,15 +66,4 @@ public class PO {
             return String.format(messages.ngettext(msgid, msgid_plural, n), n);
         return String.format(n == 1 ? msgid : msgid_plural, n);
     }
-
-    public static String xgettext(Context context, String msgid, String msgContext) {
-        Messages messages = sharedMessages(context);
-        if (messages != null)
-            return messages.xgettext(msgid, msgContext);
-        return msgid;
-    }
-
-    public static String xgettext(String msgid, String context, Object... args) {
-        return String.format(xgettext(msgid, context), args);
-    }
 }
