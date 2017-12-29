@@ -46,7 +46,7 @@ task buildDebugPoFiles {
             //def taskName = variant.buildType.name == BuilderConstants.RELEASE ? "compileReleasePoFiles" : "compileDebugPoFiles"
             if (proj.getTasks().findByName("compileDebugPoFiles") != null) {
                 proj.getTasks().findByName("compileDebugPoFiles").execute()
-                //proj.srcDirs += "${proj.getBuildDir()}/generated/source/r/${variant.buildType.name}/com/hulab/gettext/example"
+                //proj.srcDirs += "${proj.getBuildDir()}/generated/source/r/${variant.buildType.name}/com/hulab/ngettext/example"
             }
         }
     }
@@ -67,7 +67,7 @@ def executePoCompile(proj, variantName) {
     outputDir.exists() || outputDir.mkdirs()
     exec {
         commandLine '../scripts/po-compile-all', "${proj.projectDir}/po",
-                //"${proj.projectDir}/src/main/java/com/hulab/gettext/example",
+                //"${proj.projectDir}/src/main/java/com/hulab/ngettext/example",
                 outputDir.getPath(),
                 "${proj.android.defaultConfig.applicationId}"
     }

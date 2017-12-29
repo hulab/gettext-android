@@ -28,13 +28,13 @@ public class PO {
 
         if (sMessages == null) {
             String locale = Locale.getDefault().toString();
-            setLocal(context, locale);
+            setLocale(context, locale);
         }
 
         return sMessages;
     }
 
-    public static void setLocal(Context context, String locale) {
+    public static void setLocale(Context context, String locale) {
 
         try {
 
@@ -45,7 +45,7 @@ public class PO {
             // try with the language iso code
             int idx = locale.indexOf('_');
             if (idx > -1) {
-                setLocal(context, locale.substring(0, idx) );
+                setLocale(context, locale.substring(0, idx));
             }
 
         } catch (Exception e) {
@@ -54,35 +54,27 @@ public class PO {
     }
 
     public static String gettext(Context context, String msgid) {
-        return sharedMessages(context).gettext(msgid);
+        Messages messages = sharedMessages(context);
+        if (messages != null)
+            return messages.gettext(msgid);
+        return msgid;
     }
 
-    public static String gettext(Context context, String msgid, String msgid_plural, int n) {
-        return String.format(sharedMessages(context).ngettext(msgid, msgid_plural, n), n);
+    public static String ngettext(Context context, String msgid, String msgid_plural, int n) {
+        Messages messages = sharedMessages(context);
+        if (messages != null)
+            return String.format(messages.ngettext(msgid, msgid_plural, n), n);
+        return String.format(n == 1 ? msgid : msgid_plural, n);
     }
 
     public static String xgettext(Context context, String msgid, String msgContext) {
-        return sharedMessages(context).xgettext(msgid, msgContext);
+        Messages messages = sharedMessages(context);
+        if (messages != null)
+            return messages.xgettext(msgid, msgContext);
+        return msgid;
     }
 
     public static String xgettext(String msgid, String context, Object... args) {
         return String.format(xgettext(msgid, context), args);
     }
-
-    public static String ngettext(Context context, String msgid, String msgid_plural, int n) {
-        return sharedMessages(context).ngettext(msgid, msgid_plural, n);
-    }
-
-    public static String ngettext(String msgid, String msgid_plural, int n, Object... args) {
-        return String.format(ngettext(msgid, msgid_plural, n), args);
-    }
-
-    public static String nxgettext(Context context, String msgid, String msgid_plural, int n, String msgContext) {
-        return sharedMessages(context).nxgettext(msgid, msgid_plural, msgContext, n);
-    }
-
-    public static String nxgettext(Context context, String msgid, String msgid_plural, int n, String msgContext, Object... args) {
-        return String.format(nxgettext(context, msgid, msgid_plural, n, msgContext), args);
-    }
-
 }
