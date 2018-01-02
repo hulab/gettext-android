@@ -37,6 +37,9 @@ msgstr "iOS %s"
 msgid "Choose number of apples"
 msgstr "Choisissez un nombre de pomme"
 
+msgid "Exclu fr"
+msgstr "Exclusivité du Français"
+
 #: Examples-objc/ViewController.m:43
 #, objc-format
 msgid "%d apple"

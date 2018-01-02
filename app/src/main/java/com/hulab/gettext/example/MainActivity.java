@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ((TextView) findViewById(R.id.apples)).setText(PO.gettext(this, "Choose number of apples"));
+        ((TextView) findViewById(R.id.exclu)).setText(PO.gettext(this, "Exclu fr"));
         ((SeekBar) findViewById(R.id.seek_bar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

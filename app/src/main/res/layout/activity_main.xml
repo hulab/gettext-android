@@ -15,19 +15,29 @@
             android:id="@+id/apples"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:gravity="center" />
 
         <TextView
             android:id="@+id/x_apples"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:gravity="center" />
 
         <SeekBar
             android:id="@+id/seek_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:max="50" />
+
+        <TextView
+            android:id="@+id/exclu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
