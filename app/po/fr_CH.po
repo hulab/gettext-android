@@ -1,8 +1,3 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Example\n"
@@ -28,20 +23,12 @@ msgstr ""
 "X-Poedit-SearchPath-1: res/Examples-objc\n"
 "X-Poedit-SearchPath-2: java/com/hulab/exampleapp\n"
 
-#: Examples-objc/ViewController.m:33
-#, c-format
-msgid "iOS %s"
-msgstr "iOS %s"
-
-#: Examples-objc/ViewController.m:36
 msgid "Choose number of apples"
-msgstr "Choisissez un nombre de pomme pour la suisse"
+msgstr "Choisissez un nombre de pommes pour la Suisse"
 
 msgid "Exclu fr"
 msgstr "Exclusivité du Français, éventuellement en Suisse"
 
-#: Examples-objc/ViewController.m:43
-#, objc-format
 msgid "%d apple"
 msgid_plural "%d apples"
 msgstr[0] "%d pomme Suisse"
