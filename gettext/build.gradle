@@ -60,12 +60,20 @@ task buildReleasePoFiles {
 }
 
 def executePoCompile(proj, variantName) {
-    def outputDir = file("${proj.buildDir}/generated/source/r/${variantName}/com/hulab/gettext/example")
+
+    def packageName = "${proj.android.defaultConfig.applicationId}"
+
+    if (proj.hasProperty('ext.poPackageName'))
+        packageName = "${proj.ext.poPackageName}"
+
+    def endDir = packageName.replace('.', '/')
+    def outputDir = file("${proj.buildDir}/generated/source/r/${variantName}/${endDir}")
+
     outputDir.exists() || outputDir.mkdirs()
     exec {
         commandLine '../scripts/po-compile-all', "${proj.projectDir}/po",
                 outputDir.getPath(),
-                "${proj.android.defaultConfig.applicationId}"
+                packageName
     }
 }
 

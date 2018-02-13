@@ -18,6 +18,9 @@ android {
     }
 }
 
+project.ext {
+    poPackageName = 'com.hulab.gettext.example'
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
