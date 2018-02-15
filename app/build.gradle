@@ -16,10 +16,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
-project.ext {
-    poPackageName = 'com.hulab.gettext.example'
+    sourceSets {
+        main {
+            java.srcDirs {
+                'build/generated/source/translations'
+            }
+        }
+    }
 }
 
 dependencies {

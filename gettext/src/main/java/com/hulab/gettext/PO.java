@@ -2,11 +2,14 @@ package com.hulab.gettext;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.Locale;
 
 
 public class PO {
+
+    private final static String TAG = "GETTEXT";
 
     private static Messages sMessages = null;
 
@@ -65,6 +68,7 @@ public class PO {
         Messages messages = sharedMessages(context);
         if (messages != null)
             return messages.gettext(msgid);
+        Log.w(TAG, String.format("Message with id \"%s\" was not found ! Falling back on id.", msgid));
         return msgid;
     }
 
@@ -89,6 +93,7 @@ public class PO {
         Messages messages = sharedMessages(context);
         if (messages != null)
             return String.format(messages.ngettext(msgid, msgid_plural, n), n);
+        Log.w(TAG, String.format("Message with id \"%s\" was not found ! Falling back on id.", msgid));
         return String.format(n == 1 ? msgid : msgid_plural, n);
     }
 }

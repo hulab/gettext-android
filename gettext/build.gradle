@@ -1,5 +1,3 @@
-import com.android.builder.core.BuilderConstants
-
 apply plugin: 'com.android.library'
 
 android {
@@ -24,50 +22,38 @@ android {
 
 }
 
-android.libraryVariants.all { variant ->
-    tasks.create(variant.buildType.name == BuilderConstants.RELEASE ?
-            "compileReleasePoFiles" : "compileDebugPoFiles") {
-        doFirst {
-            rootProject.allprojects.each { proj ->
-                def pofolder = new File("${proj.projectDir}/po/")
-                if (pofolder.exists() && proj.hasProperty("android")) {
-                    executePoCompile(proj, variant.buildType.name)
-                }
+
+tasks.create("compilePoFiles") {
+    doFirst {
+        rootProject.allprojects.each { proj ->
+            def pofolder = new File("${proj.projectDir}/po/")
+            if (pofolder.exists() && proj.hasProperty("android")) {
+                executePoCompile(proj)
             }
         }
     }
 }
 
-task buildDebugPoFiles {
+task buildPoFiles {
     doFirst {
         rootProject.allprojects.each { proj ->
             println("compiling po files for project : ${proj.getName()}")
-            if (proj.getTasks().findByName("compileDebugPoFiles") != null) {
-                proj.getTasks().findByName("compileDebugPoFiles").execute()
+            if (proj.getTasks().findByName("compilePoFiles") != null) {
+                proj.getTasks().findByName("compilePoFiles").execute()
             }
         }
     }
 }
 
-task buildReleasePoFiles {
-    doFirst {
-        rootProject.allprojects.each { proj ->
-            if (proj.getTasks().findByName("compileReleasePoFiles") != null) {
-                proj.getTasks().findByName("compileReleasePoFiles").execute()
-            }
-        }
-    }
-}
-
-def executePoCompile(proj, variantName) {
+def executePoCompile(proj) {
 
     def packageName = "${proj.android.defaultConfig.applicationId}"
 
-    if (proj.hasProperty('ext.poPackageName'))
-        packageName = "${proj.ext.poPackageName}"
+    if (proj.hasProperty('poPackageName'))
+        packageName = "${proj.poPackageName}"
 
     def endDir = packageName.replace('.', '/')
-    def outputDir = file("${proj.buildDir}/generated/source/r/${variantName}/${endDir}")
+    def outputDir = file("${proj.buildDir}/generated/source/translations/${endDir}")
 
     outputDir.exists() || outputDir.mkdirs()
     exec {
@@ -78,8 +64,7 @@ def executePoCompile(proj, variantName) {
 }
 
 preBuild.doFirst {
-    buildDebugPoFiles.execute()
-    buildReleasePoFiles.execute()
+    buildPoFiles.execute()
 }
 
 dependencies {
