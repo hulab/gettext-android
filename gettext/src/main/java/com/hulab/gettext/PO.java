@@ -23,6 +23,12 @@ public class PO {
         return sMessages;
     }
 
+
+    public static void setLocale(Context context) {
+        String locale = Locale.getDefault().toString();
+        setLocale(context, locale);
+    }
+
     /**
      * Set the current app's language manually. Otherwise, it will just take into account the
      * default locale.
@@ -42,9 +48,13 @@ public class PO {
             int idx = locale.indexOf('_');
             if (idx > -1) {
                 setLocale(context, locale.substring(0, idx));
+            } else {
+                Log.w(TAG, "Locale not found ! Falling back on msg ids.");
+                sMessages = new Messages();
             }
 
         } catch (Exception e) {
+            Log.e(TAG, "Something went wrong while trying to set locale.");
             sMessages = new Messages();
         }
     }
@@ -60,28 +70,23 @@ public class PO {
      * "pt_BR" -> "pt_BR"
      * "pt" -> {@param msgid}
      *
-     * @param context the non-null context
      * @param msgid   the key of the message
      * @return The translated message for the given key.
      */
-    public static String gettext(@NonNull Context context, String msgid) {
-        Messages messages = sharedMessages(context);
-        if (messages != null)
-            return messages.gettext(msgid);
-        Log.w(TAG, String.format("Message with id \"%s\" was not found ! Falling back on id.", msgid));
-        return msgid;
+    public static String gettext(String msgid) {
+        assert sMessages != null : "should call setLocale(§)";
+        return sMessages.gettext(msgid);
     }
 
     /**
      * Returns the translated string for the given key. The string is translated in the set language
      * if such a file is available.
      * <p>
-     * Fallbacks are operating in the same way than {@link #gettext(Context, String)}.
+     * Fallbacks are operating in the same way than {@link #gettext(String)}.
      * Plurals rules are referring to the ones given in the .po files. If no locale is available,
      * The last fallback is "en" rules: if {@param n} == 1, we use {@param msgid} as fallback. If
      * different than 1, we use {@param msgid_plural} as fallback.
      *
-     * @param context      the non-null context
      * @param msgid        the key of the message
      * @param msgid_plural the plural key of the message
      * @param n            the quantity to consider when getting the plural form
@@ -89,11 +94,8 @@ public class PO {
      * Quantity is injected in the resulting string using
      * {@link java.lang.String#format(String, Object...) String.format()} method.
      */
-    public static String ngettext(Context context, String msgid, String msgid_plural, int n) {
-        Messages messages = sharedMessages(context);
-        if (messages != null)
-            return String.format(messages.ngettext(msgid, msgid_plural, n), n);
-        Log.w(TAG, String.format("Message with id \"%s\" was not found ! Falling back on id.", msgid));
-        return String.format(n == 1 ? msgid : msgid_plural, n);
+    public static String ngettext(String msgid, String msgid_plural, int n) {
+        assert sMessages != null : "should call setLocale(§)";
+        return String.format(sMessages.ngettext(msgid, msgid_plural, n), n);
     }
 }

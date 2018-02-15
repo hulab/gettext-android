@@ -17,12 +17,8 @@ android {
         }
     }
 
-    sourceSets {
-        main {
-            java.srcDirs {
-                'build/generated/source/translations'
-            }
-        }
+    sourceSets.main.java.srcDirs {
+        'build/generated/source/translations'
     }
 }
 
