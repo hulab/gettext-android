@@ -67,6 +67,10 @@ preBuild.doFirst {
     buildPoFiles.execute()
 }
 
+task jar(type: Jar, dependsOn: 'compileReleaseSources') {
+    from "$buildDir/intermediates/classes/release/"
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
