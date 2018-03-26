@@ -1,1 +1,1 @@
-include ':app', ':gettext'
+include 'gradle-plugin', ':app', ':gettext'

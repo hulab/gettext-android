@@ -1,27 +1,46 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    
     repositories {
-        google()
+        mavenCentral()
+        mavenLocal()
         jcenter()
     }
+
     dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath 'com.android.tools.build:gradle:3.0.1'
-        
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+
+task buildPluginJar(type: Zip) {
+    description = 'Generate package'
+    dependsOn assemble, compileGroovy
+
+    group = 'Artifact'
+    archiveName = "gettext-android.jar"
+    destinationDir = file("../lib/")
+
+    from('../gradle-plugin/gettext-android.properties')
+    from('../gradle-plugin/build/classes/groovy/')
+    from('../gradle-plugin/src/main/') {
+        include 'scripts/*'
+        include 'resources/'
+        into('/')
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+task installGettextPlugin() {
+    description = 'Install Gettext-android plugin'
+    dependsOn buildPluginJar
+    group = 'Install'
+
+    exec {
+        workingDir '.'
+        commandLine '/usr/local/bin/mvn', 'initialize'
+    }
 }

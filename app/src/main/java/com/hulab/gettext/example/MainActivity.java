@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         PO.setLocale(this);
 
         ((TextView) findViewById(R.id.apples)).setText(PO.gettext("Choose number of apples"));
+
         ((TextView) findViewById(R.id.exclu)).setText(PO.gettext("Exclu fr"));
         ((SeekBar) findViewById(R.id.seek_bar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

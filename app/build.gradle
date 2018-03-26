@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.hulab.gettext:gettext-android:1.0.0'
+    }
+}
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -31,3 +40,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':gettext')
 }
+
+apply plugin: 'gettext-android'
