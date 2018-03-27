@@ -3,12 +3,21 @@ buildscript {
         mavenCentral()
         mavenLocal()
         jcenter()
+        google()
     }
 
     dependencies {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.0'
+    }
+}
+
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
     }
 }
 
@@ -23,14 +32,16 @@ task buildPluginJar(type: Zip) {
 
     group = 'Artifact'
     archiveName = "gettext-android.jar"
-    destinationDir = file("../lib/")
+    destinationDir = file("build/libs/")
 
-    from('../gradle-plugin/gettext-android.properties')
-    from('../gradle-plugin/build/classes/groovy/')
-    from('../gradle-plugin/src/main/') {
-        include 'scripts/*'
-        include 'resources/'
-        into('/')
+    from('gradle-plugin/build/classes/groovy/main') {
+        into('src/main/groovy')
+    }
+    from('gradle-plugin/build/resources/main') {
+        into('src/main/resources')
+    }
+    from('gradle-plugin/src/main/') {
+        include('scripts/')
     }
 }
 

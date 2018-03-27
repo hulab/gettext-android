@@ -1,0 +1,75 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+sourceCompatibility = 1.7
+
+group 'com.hulab.gradle'
+version '1.0.0'
+
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.12'
+    compile gradleApi()
+    compile localGroovy()
+}
+
+sourceSets {
+    main {
+        java {
+            include('scripts/')
+        }
+    }
+}
+
+def commonPom = {
+    licenses {
+        license {
+            name 'The Apache Software License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            distribution 'repo'
+        }
+    }
+    scm {
+    }
+}
+
+publishing {
+    publications {
+        gettextAndroid(MavenPublication) {
+            groupId 'com.hulab.gradle'
+            artifactId = 'gettext-android'
+            from components.java
+            pom.withXml {
+                Node root = asNode()
+                root.appendNode('name', 'gettext-android')
+                root.appendNode('description', 'Gradle plugin for Gettext library.')
+                root.appendNode('url', 'http://mapstr.com')
+                root.children().last() + commonPom
+            }
+        }
+    }
+    repositories {
+        maven {
+        }
+    }
+}
