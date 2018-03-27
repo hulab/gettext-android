@@ -1,5 +1,12 @@
 apply plugin: 'com.android.library'
 
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
 android {
     compileSdkVersion 26
 
@@ -32,48 +39,3 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-
-
-//tasks.create("compilePoFiles") {
-//    doFirst {
-//        rootProject.allprojects.each { proj ->
-//            def pofolder = new File("${proj.projectDir}/po/")
-//            if (pofolder.exists() && proj.hasProperty("android")) {
-//                executePoCompile(proj)
-//            }
-//        }
-//    }
-//}
-
-//task buildPoFiles {
-//    doFirst {
-//        rootProject.allprojects.each { proj ->
-//            println("compiling po files for project : ${proj.getName()}")
-//            if (proj.getTasks().findByName("compilePoFiles") != null) {
-//                proj.getTasks().findByName("compilePoFiles").execute()
-//            }
-//        }
-//    }
-//}
-
-//def executePoCompile(proj) {
-//
-//    def packageName = "${proj.android.defaultConfig.applicationId}"
-//
-//    if (proj.hasProperty('poPackageName'))
-//        packageName = "${proj.poPackageName}"
-//
-//    def endDir = packageName.replace('.', '/')
-//    def outputDir = file("${proj.buildDir}/generated/source/translations/${endDir}")
-//
-//    outputDir.exists() || outputDir.mkdirs()
-//    exec {
-//        commandLine '../scripts/po-compile-all', "${proj.projectDir}/po",
-//                outputDir.getPath(),
-//                packageName
-//    }
-//}
-
-//preBuild.doFirst {
-//    buildPoFiles.execute()
-//}
