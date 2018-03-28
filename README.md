@@ -1,5 +1,5 @@
 # Gettext-Android
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [ ![Download](https://api.bintray.com/packages/nebneb/DebugKit/debugkit/images/download.svg) ](https://bintray.com/nebneb/Gettext-Android/gettext-android/_latestVersion)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [ ![Download](https://api.bintray.com/packages/nebneb/Gettext-Android/gettext-android/images/download.svg) ](https://bintray.com/nebneb/Gettext-Android/gettext-android/_latestVersion)
 
 Gettext for Android allows you to use common po files to an Android project
 
