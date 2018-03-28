@@ -36,9 +36,9 @@ ext {
 
     libraryDescription = 'Gettext for Android allows you to use common po files to an Android project'
 
-    siteUrl = 'https://git.hulab.co/hulab/gettext-android/'
-    gitUrl = 'https://git.hulab.co/hulab/gettext-android/'
-    vcsUrl = 'https://git.hulab.co/hulab/gettext-android/'
+    siteUrl = 'https://github.com/hulab/gettext-android'
+    gitUrl = 'https://github.com/hulab/gettext-android'
+    vcsUrl = 'https://github.com/hulab/gettext-android'
 
     libraryVersion = '1.0.0'
 

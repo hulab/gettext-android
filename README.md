@@ -28,7 +28,7 @@ Add gettext-android-1.0.jar to your `libs/` folder. Then, add the following to y
    }
    
    dependencies {
-       compile 'com.hulab.android:gettext-android:1.0.0'
+       compile 'com.hulab.gradle:gettext-android:1.0.0'
    }
    
    apply plugin: 'gettext-android'
