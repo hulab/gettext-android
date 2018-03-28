@@ -1,3 +1,8 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+
 buildscript {
     repositories {
         mavenCentral()
@@ -21,8 +26,46 @@ allprojects {
     }
 }
 
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'groovy'
-apply plugin: 'maven-publish'
+ext {
+    bintrayRepo = 'Gettext-Android'
+    bintrayName = 'gettext-android'
 
+    publishedGroupId = 'com.hulab.gradle'
+    libraryName = 'gettext-android'
+    artifact = 'gettext-android'
+
+    libraryDescription = 'Gettext for Android allows you to use common po files to an Android project'
+
+    siteUrl = 'https://git.hulab.co/hulab/gettext-android/'
+    gitUrl = 'https://git.hulab.co/hulab/gettext-android/'
+    vcsUrl = 'https://git.hulab.co/hulab/gettext-android/'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'nebneb'
+    developerName = 'Pierre-Emmanuel Altieri'
+    developerEmail = 'pe.altieri@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+
+    user = project.hasProperty('bintray.user') ? project.property('bintray.user') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintray.apikey') ? project.property('bintray.apikey') : System.getenv('BINTRAY_API_KEY')
+    // jFrog plugin must be declared for this line to work
+    configurations = ['archives']
+    // Package info for BinTray
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            group "com.hulab.gradle"
+            artifactId "gettext-android"
+            version "1.0.0"
+        }
+    }
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
