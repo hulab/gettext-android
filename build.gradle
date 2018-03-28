@@ -26,32 +26,3 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
-task buildPluginJar(type: Zip) {
-    description = 'Generate package'
-    dependsOn assemble, compileGroovy
-
-    group = 'Artifact'
-    archiveName = "gettext-android.jar"
-    destinationDir = file("build/libs/")
-
-    from('gradle-plugin/build/classes/groovy/main') {
-        into('src/main/groovy')
-    }
-    from('gradle-plugin/build/resources/main') {
-        into('src/main/resources')
-    }
-    from('gradle-plugin/src/main/') {
-        include('scripts/')
-    }
-}
-
-task installGettextPlugin() {
-    description = 'Install Gettext-android plugin'
-    dependsOn buildPluginJar
-    group = 'Install'
-
-    exec {
-        workingDir '.'
-        commandLine '/usr/local/bin/mvn', 'initialize'
-    }
-}
