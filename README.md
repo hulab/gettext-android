@@ -1,7 +1,7 @@
 # Gettext-Android
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [ ![Download](https://api.bintray.com/packages/nebneb/Gettext-Android/gettext-android/images/download.svg) ](https://bintray.com/nebneb/Gettext-Android/gettext-android/_latestVersion)
 
-Gettext for Android allows you to use common po files to an Android project
+Gettext for Android allows you to use common po files to an Android project.
 
 # Installation
 
@@ -79,3 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 ---
+
+# Credits
+
+Many thanks to Aurélien Gâteau who wrote the scripts to generate java classes from PO files.
