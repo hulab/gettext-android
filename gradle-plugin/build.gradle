@@ -33,13 +33,7 @@ dependencies {
     compile localGroovy()
 }
 
-sourceSets {
-    main {
-        java {
-            include('scripts/')
-        }
-    }
-}
+
 
 def commonPom = {
     licenses {

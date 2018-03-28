@@ -28,9 +28,14 @@ class GettextAndroid implements Plugin<Project> {
 
         outputDir.exists() || outputDir.mkdirs()
 
-        extract(this.getClass().protectionDomain.codeSource.location.path, project)
+         project.android.sourceSets.main.java.srcDirs {
+            'build/generated/source/translations'
+         }
 
-        def cmd = ["${project.getBuildDir().path}/generated/scripts/po-compile-all", "${project.projectDir}/po", "${outputDir.getPath()}", packageName]
+        downloadScripts(project)
+
+
+        def cmd = ["${project.buildDir}/scripts/po-compile-all", "${project.projectDir}/po", "${outputDir.path}", packageName]
         println(cmd)
 
         def sout = new StringBuilder(), serr = new StringBuilder()
@@ -44,30 +49,31 @@ class GettextAndroid implements Plugin<Project> {
         println("PO compile done.")
     }
 
-    void download(Project project) {
+    void downloadScripts(Project project) {
+        def address = "https://git.hulab.co/hulab/gettext-android/raw/master/gradle-plugin/src/scripts.zip"
+        def dest = "$project.buildDir/scripts.zip"
 
-    }
-
-    void extract(String jarPath, Project project) {
-        def dest = "${project.getBuildDir().path}/generated/"
-        new AntBuilder().unzip(
-                src: jarPath,
-                dest: dest,
-                overwrite: "true") {
-            patternset() {
-                exclude(name: "META-INF")
-                exclude(name: "com/*")
-                include(name: "/po-compile*")
-                include(name: "/Messages.java.tmpl")
+        new File(dest).withOutputStream { out ->
+            new URL(address).withInputStream { from -> out << from
             }
         }
+        extract(dest, project)
+    }
+
+    void extract(String zipPath, Project project) {
+        def dest = "${project.buildDir}/"
+        new AntBuilder().unzip(
+                src: zipPath,
+                dest: dest,
+                overwrite: "true")
+
         Set<PosixFilePermission> perms = new HashSet<>()
         perms.add(PosixFilePermission.OWNER_READ)
         perms.add(PosixFilePermission.OWNER_WRITE)
         perms.add(PosixFilePermission.OWNER_EXECUTE)
 
-        File poCompileAll = new File("${dest}/scripts/po-compile-all")
-        File poCompilePy = new File("${dest}/scripts/po-compile.py")
+        File poCompileAll = new File("${dest}scripts/po-compile-all")
+        File poCompilePy = new File("${dest}scripts/po-compile.py")
         Files.setPosixFilePermissions(poCompileAll.toPath(), perms)
         Files.setPosixFilePermissions(poCompilePy.toPath(), perms)
     }
