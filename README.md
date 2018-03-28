@@ -1,4 +1,5 @@
 # Gettext-Android
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [ ![Download](https://api.bintray.com/packages/nebneb/DebugKit/debugkit/images/download.svg) ](https://bintray.com/nebneb/Gettext-Android/gettext-android/_latestVersion)
 
 Gettext for Android allows you to use common po files to an Android project
 
@@ -6,15 +7,17 @@ Gettext for Android allows you to use common po files to an Android project
 
 First, put your po files at the root of your project, at the same level as your src/ folder.
 
-```
-    /my-project
-    -- src/
-    -- libs/
-    -- po/
-    ---- en.po
-    ---- fr.po
-    ---- ...
-
+``` 
+    my-project/
+         ├── src/
+         ├── po/
+         │  ├── en.po
+         │  ├── en_US.po
+         │  ├── fr.po
+         │  ├── fr_CH.po
+         │  ├── ru.po
+         │  └ ... 
+         └ ...
 ```
 
 Add gettext-android-1.0.jar to your `libs/` folder. Then, add the following to your `build.gradle` file:
