@@ -23,15 +23,26 @@ First, put your po files at the root of your project, at the same level as your 
 Add gettext-android-1.0.jar to your `libs/` folder. Then, add the following to your `build.gradle` file:
 
 ```groovy
-   repositories {
-       jcenter()
-   }
+    buildscript {
+        repositories {
+            jcenter()
+        } 
+       
+        dependencies {
+            // Classpath dependency for gettext gradle plugin
+            classpath "gradle.plugin.com.hulab.gradle:gradle-plugin:1.0.0"
+        }
+    }
+   
    
    dependencies {
-       compile 'com.hulab.gradle:gettext-android:1.0.0'
+   
+        // Gettext library dependency
+        implementation 'com.hulab.gettext:gettext-android:1.0.0'
    }
    
-   apply plugin: 'gettext-android'
+   // Apply plugin
+   apply plugin: "com.hulab.gradle.gettext-android"
 
 ```
 
