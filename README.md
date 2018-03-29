@@ -20,7 +20,7 @@ First, put your po files at the root of your project, at the same level as your 
          └ ...
 ```
 
-Add gettext-android-1.0.jar to your `libs/` folder. Then, add the following to your `build.gradle` file:
+Then, add the following to your `build.gradle` file:
 
 ```groovy
     buildscript {
