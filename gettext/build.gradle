@@ -1,9 +1,18 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 buildscript {
     repositories {
         mavenCentral()
+        mavenLocal()
         jcenter()
+        google()
+    }
+
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
 
@@ -14,10 +23,9 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -28,14 +36,68 @@ android {
     }
 }
 
-task jar(type: Jar, dependsOn: 'compileReleaseSources') {
-    from "$buildDir/intermediates/classes/release/"
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
+
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    bintrayRepo = 'Gettext-Android'
+    bintrayName = 'gettext-android'
+
+    publishedGroupId = 'com.hulab.gradle'
+    libraryName = 'Gettext-Android'
+    artifact = 'gettext-android'
+
+    libraryDescription = 'Gettext for Android allows you to use common po files to an Android project'
+
+    siteUrl = 'https://github.com/hulab/gettext-android'
+    gitUrl = 'https://github.com/hulab/gettext-android'
+    vcsUrl = 'https://github.com/hulab/gettext-android'
+
+    libraryVersion = "1.0.0"
+
+    developerId = 'nebneb'
+    developerName = 'Pierre-Emmanuel Altieri'
+    developerEmail = 'pe.altieri@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+
+    user = project.hasProperty('bintray.user') ? project.property('bintray.user') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintray.key') ? project.property('bintray.key') : System.getenv('BINTRAY_API_KEY')
+    // jFrog plugin must be declared for this line to work
+    configurations = ['archives']
+    // Package info for BinTray
+}
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    pkg {
+        repo = 'Gettext-Android'
+        name = 'gettext-android'
+        userOrg = 'nebneb'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/hulab/gettext-android'
+        version {
+            name = "$libraryVersion"
+            desc = "Gettext for Android version $libraryVersion"
+            released = new Date()
+            vcsTag = "$libraryVersion"
+            attributes = ['gettext-android': 'com.hulab.gradle:gettext-android']
+        }
+    }
+}
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

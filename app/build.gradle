@@ -3,11 +3,13 @@ apply plugin: 'com.android.application'
 buildscript {
     repositories {
         mavenCentral()
-        mavenLocal()
         google()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath 'com.hulab.gradle:gettext-android:1.0.0'
+        classpath "gradle.plugin.com.hulab.gradle:gradle-plugin:1.0.0"
     }
 }
 
@@ -18,7 +20,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -40,4 +42,4 @@ dependencies {
     implementation project(':gettext')
 }
 
-apply plugin: 'gettext-android'
+apply plugin: "com.hulab.gradle.gettext-android"

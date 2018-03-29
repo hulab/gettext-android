@@ -1,7 +1,6 @@
 package com.hulab.gettext;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.Locale;
@@ -36,7 +35,7 @@ public class PO {
      * @param context The current context. This context must be non-null.
      * @param locale  The ISO code of the language, for example "en", "ru", "fr", "fr_CH".
      */
-    public static void setLocale(@NonNull Context context, String locale) {
+    public static void setLocale(Context context, String locale) {
 
         try {
 
