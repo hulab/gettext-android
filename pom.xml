@@ -34,7 +34,7 @@
         <repository>
             <id>bintray-nebneb-Gettext-Android</id>
             <name>nebneb-Gettext-Android</name>
-            <url>https://api.bintray.com/maven/nebneb/Gettext-Android/gettext-android/;publish=1</url>
+            <url>https://api.bintray.com/maven/nebneb/Gettext-Android/gettext/;publish=1</url>
         </repository>
     </distributionManagement>
 </settings>

@@ -38,7 +38,7 @@ Then, add the following to your `build.gradle` file:
    dependencies {
    
         // Gettext library dependency
-        implementation 'com.hulab.gettext:gettext-android:1.0.0'
+        implementation 'com.hulab.android:gettext:1.0.0'
    }
    
    // Apply plugin
