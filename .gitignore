@@ -8,3 +8,11 @@
 /captures
 .externalNativeBuild
 .idea
+/gettext/gradlew.bat
+gettext/gradlew
+gettext/gradlew.bat
+gradle-plugin/gradle/
+gradle-plugin/gradlew
+gradle-plugin/gradlew.bat
+private_key_sender.asc
+public_key_sender.asc

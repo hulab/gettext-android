@@ -3,67 +3,51 @@ buildscript {
         mavenCentral()
         mavenLocal()
         jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.10"
     }
 }
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: "com.gradle.plugin-publish"
+
+def pluginVersion = "1.0.0"
 
 sourceCompatibility = 1.7
 
 group 'com.hulab.gradle'
-version '1.0.0'
+version "$pluginVersion"
 
+
+pluginBundle {
+    website = 'https://github.com/hulab/gettext-android'
+    vcsUrl = 'https://github.com/hulab/gettext-android'
+    description = 'Gradle plugin to compile po files.'
+    tags = ['android', 'build', 'gettext', 'translation', 'localization']
+
+    plugins {
+        greetingsPlugin {
+            id = 'com.hulab.gradle.gettext-android'
+            displayName = 'gettext-android Gradle plugin'
+        }
+    }
+}
 
 repositories {
     mavenCentral()
     mavenLocal()
+    jcenter()
 }
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.12'
     compile gradleApi()
     compile localGroovy()
-}
-
-
-
-def commonPom = {
-    licenses {
-        license {
-            name 'The Apache Software License, Version 2.0'
-            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-            distribution 'repo'
-        }
-    }
-    scm {
-    }
-}
-
-publishing {
-    publications {
-        gettextAndroid(MavenPublication) {
-            groupId 'com.hulab.gradle'
-            artifactId = 'gettext-android'
-            from components.java
-            pom.withXml {
-                Node root = asNode()
-                root.appendNode('name', 'gettext-android')
-                root.appendNode('description', 'Gradle plugin for Gettext library.')
-                root.appendNode('url', 'http://mapstr.com')
-                root.children().last() + commonPom
-            }
-        }
-    }
-    repositories {
-        maven {
-        }
-    }
 }
