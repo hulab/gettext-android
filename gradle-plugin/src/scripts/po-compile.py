@@ -34,6 +34,7 @@ The generated .java files can then be used with the Translator class.
 """
 
 ESCAPES = [
+    ('\"' , r'\"'),
     ('\n', r'\n'),
     ('\\', r'\\'),
     ]
