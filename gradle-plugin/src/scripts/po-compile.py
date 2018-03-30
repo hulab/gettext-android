@@ -33,11 +33,7 @@ Generates .java files from .po files.
 The generated .java files can then be used with the Translator class.
 """
 
-ESCAPES = [
-    ('"' , r'\"'),
-    ('\n', r'\n'),
-    ('\\', r'\\'),
-    ]
+ESCAPES = [('\'' , r'\\\'')]
 def escape(txt):
     for src, dst in ESCAPES:
         txt = txt.replace(src, dst)
@@ -65,10 +61,10 @@ def process(package, locale, pofile, out):
         tmpl = jinja2.Template(f.read())
 
     entries = pofile.translated_entries()
-    plain_entries = [(x.msgid, x.msgstr) for x in entries if not x.msgstr_plural and not x.msgctxt]
-    ctxt_entries = [(x.msgid, x.msgstr, x.msgctxt) for x in entries if x.msgctxt and not x.msgstr_plural]
-    plain_plurals = [(x.msgid, x.msgid_plural, x.msgstr_plural) for x in entries if x.msgstr_plural and not x.msgctxt]
-    ctxt_plurals = [(x.msgid, x.msgid_plural, x.msgstr_plural, x.msgctxt) for x in entries if x.msgstr_plural and x.msgctxt]
+    plain_entries = [(escape(x.msgid), escape(x.msgstr)) for x in entries if not x.msgstr_plural and not x.msgctxt]
+    ctxt_entries = [(escape(x.msgid), escape(x.msgstr), escape(x.msgctxt)) for x in entries if x.msgctxt and not x.msgstr_plural]
+    plain_plurals = [(escape(x.msgid), escape(x.msgid_plural), escape_plural(x.msgstr_plural)) for x in entries if x.msgstr_plural and not x.msgctxt]
+    ctxt_plurals = [(escape(x.msgid), escape(x.msgid_plural), escape_plural(x.msgstr_plural), escape(x.msgctxt)) for x in entries if x.msgstr_plural and x.msgctxt]
     plural_code = extract_plural_code(pofile.metadata["Plural-Forms"])
 
     txt = tmpl.render(dict(
