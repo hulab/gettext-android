@@ -33,7 +33,7 @@ Generates .java files from .po files.
 The generated .java files can then be used with the Translator class.
 """
 
-ESCAPES = [("'" , r"\'"), ('\n',r'\n')]
+ESCAPES = [("'" , r"\'"), ('\n',r'\n'), ('"', r'\"')]
 def escape(txt):
     for src, dst in ESCAPES:
         txt = txt.replace(src, dst)
