@@ -27,8 +27,8 @@ msgid "Exclu fr"
 msgstr ""
 
 #: com/hulab/gettext/example/MainActivity.java:21
-msgid "%d apple"
-msgid_plural "%d apples"
-msgstr[0] "%d яблоко"
-msgstr[1] "%d яблока"
-msgstr[2] "%d яблок"
+msgid "%i apple"
+msgid_plural "%i apples"
+msgstr[0] "%i яблоко"
+msgstr[1] "%i яблока"
+msgstr[2] "%i яблок"

@@ -28,7 +28,7 @@ msgid "Exclu fr"
 msgstr "Exclusivité du Français"
 
 #: com/hulab/gettext/example/MainActivity.java:21
-msgid "%d apple"
-msgid_plural "%d apples"
-msgstr[0] "%d pomme"
-msgstr[1] "%d pommes"
+msgid "%i apple"
+msgid_plural "%i apples"
+msgstr[0] "%i pomme"
+msgstr[1] "%i pommes"

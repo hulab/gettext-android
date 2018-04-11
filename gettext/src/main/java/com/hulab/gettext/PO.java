@@ -74,7 +74,27 @@ public class PO {
      */
     public static String gettext(String msgid) {
         assert sMessages != null : "should call setLocale(§)";
-        return sMessages.gettext(msgid);
+        return sMessages.gettext(CFormatter.format(msgid));
+    }
+
+    /**
+     * Returns the translated string for the given key. The string is translated in the set language
+     * if such a file is available.
+     * <p>
+     * Fallbacks are the following if only "en", "fr", and "pt-BR" are available:
+     * <p>
+     * "en_US" -> "en"
+     * "fr_CH" -> "fr"
+     * "pt_BR" -> "pt_BR"
+     * "pt" -> {@param msgid}
+     *
+     * @param msgid the key of the message
+     * @param args For string injections
+     * @return The translated message for the given key.
+     */
+    public static String gettext(String msgid, Object... args) {
+        assert sMessages != null : "should call setLocale(§)";
+        return String.format(CFormatter.format(sMessages.gettext(msgid)), args);
     }
 
     /**
@@ -95,6 +115,6 @@ public class PO {
      */
     public static String ngettext(String msgid, String msgid_plural, int n) {
         assert sMessages != null : "should call setLocale(§)";
-        return String.format(sMessages.ngettext(msgid, msgid_plural, n), n);
+        return String.format(CFormatter.format(sMessages.ngettext(msgid, msgid_plural, n)), n);
     }
 }

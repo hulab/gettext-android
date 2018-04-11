@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         ((SeekBar) findViewById(R.id.seek_bar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                ((TextView) findViewById(R.id.x_apples)).setText(PO.ngettext("%d apple", "%d apples", progress));
+                ((TextView) findViewById(R.id.x_apples)).setText(PO.ngettext("%i apple", "%i apples", progress));
             }
 
             @Override
