@@ -91,6 +91,47 @@ public class MainActivity extends AppCompatActivity {
 
 ---
 
+
+# About this library
+
+Localization on Android is convenient enough for your app as long as you don't need to use same translations for an iOS app.
+As you might know, iOS localization works with different files, different injections characters, and different keys system.
+
+At Mapstr, we have been undergoing with this issue and every new translation was a pain to add and use. We needed to translate,
+have it in the right format for both platforms, hence manage a double keys / value, and of course trying to avoid duplicated 
+and missing strings.
+
+For this reason we thought about having a true multi-platform tool that would allow us to have a same translation base, in 
+a way that iOS and Android could use it. Keeping goals in mind, our researches pinpointed the .po format, used by many 
+softwares and supported by many translations services. Moreover, it manages plurals better than the regular .xml files, 
+as plural rules are declared directly in the .po file.  
+
+The challenge on Android was to have a simple enough system that would give the developer the opportunity to simply integrate
+his .po translation files dependencies. 
+
+At Gradle Sync time, the plugin considers every module in the current project tree and seek for a `po/ folder at root. `
+For every found module, the plugin will download and run a python script to generate java classes with those po files under 
+the `build/generated/sources/translations/` folder, and add it as a source set to the project. One class is generated for 
+each .po file under the source `po/` folder.
+  
+Those classes will be processed by your build script, and stay available at runtime, Gettext library will be able to reach 
+out the right translation class depending on the locale found in the initializing context. You can obviously initialize 
+Gettext with a specific locale.
+ 
+
+
+# Next improvements
+
+This plugin and library are a usable proof of concept. It is convenient enough for your translation flow, but is far from
+xml usability in android development. You don't have any auto-completion, so it's easy to make a mistake when using Gettext.
+For this reason, one of the next improvements will be to create a Android Studio plugin to make those strings recognized by 
+your development environment, and have auto-completion back in the game.
+
+Obviously, as this lib and plugin are open-source, I'm more than open to suggestions, and would be happy to make and see this 
+cross-platform ambition becoming a reference for building localized apps. 
+
+
+
 # Credits
 
 Many thanks to Aurélien Gâteau who wrote the scripts to generate java classes from PO files.
