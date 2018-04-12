@@ -109,8 +109,8 @@ as plural rules are declared directly in the .po file.
 The challenge on Android was to have a simple enough system that would give the developer the opportunity to simply integrate
 his .po translation files dependencies. 
 
-At Gradle Sync time, the plugin considers every module in the current project tree and seek for a `po/ folder at root. `
-For every found module, the plugin will download and run a python script to generate java classes with those po files under 
+At Gradle Sync time, the plugin considers every module in the current project tree and seek for a `po/` folder at root.
+For each found module, the plugin will download and run a python script to generate java classes with those po files under 
 the `build/generated/sources/translations/` folder, and add it as a source set to the project. One class is generated for 
 each .po file under the source `po/` folder.
   
